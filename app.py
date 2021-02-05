@@ -1,5 +1,5 @@
 ### import section ######################################################################################
-import re
+import re , bcrypt
 from typing import Tuple
 from flask import Flask, redirect, url_for, render_template,request,flash
 from flask.globals import session
@@ -101,7 +101,8 @@ def pwgen():
 def login():
     if request.method=="POST":
         session["username"]=request.form["login_username"]
-        session["password"]=request.form["login_password"]
+        password=request.form["login_password"].encode("utf-8")
+        session["passowrd"]=bcrypt.hashpw(password,bcrypt.gensalt())
         return redirect(url_for("home") )
 
     else:
@@ -111,17 +112,17 @@ def login():
 
 
 
-
-
 ### home function ########################################################################################
 @app.route("/home")
 def home():
     try:
         if session["username"]:
-            return render_template("home.html",usr=session["username"])
+            return render_template("home.html",usr=session["username"] , pw=session["passowrd"])
         else:
+            flash("login first .")
             return redirect(url_for("login"))
     except:
+            flash("login first .")
             return redirect(url_for("login"))
 ###########################################################################################################
 
@@ -130,7 +131,8 @@ def home():
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("main"))
+    flash("you just loged out")
+    return redirect(url_for("login"))
 ###########################################################################################################
 
 
