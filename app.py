@@ -1,6 +1,6 @@
 ### import section ######################################################################################
 import re , bcrypt
-from flask import Flask ,flask, redirect, url_for, render_template,request,flash
+from flask import Flask , redirect, url_for, render_template,request,flash
 from flask.globals import session
 from datetime import datetime, timedelta , date
 from flask_sqlalchemy import SQLAlchemy
