@@ -24,8 +24,8 @@ SIGN UP
     <hr>
     
     <div class="col-md-6">
-        <label for="input_fristname"  class="form-label">First name</label>
-        <input type="text" class="form-control"  required name="input_fristname">
+        <label for="input_firstname"  class="form-label">First name</label>
+        <input type="text" class="form-control"   name="input_firstname" required>
       </div>
 
       <div class="col-md-6">
@@ -48,8 +48,15 @@ SIGN UP
         </div>
       </div>
     </div>
-
-      
+    
+    <div class="col-12">
+      <label for="input_birthdate" class="form-label" >Birth date</label>
+      <div class="input-group">
+        <input type="date" class="form-control" id="input_birthdate" min="1900-01-01"  required name="input_birthdate">
+      </div>
+    </div>
+  </div>
+        
     <div class="col-md-6">
       <label for="input_password1" class="form-label" >Password</label>
       <input type="password" class="form-control" name="input_password1" id="input_password1" minlength="12" required>
@@ -67,7 +74,7 @@ SIGN UP
               <p>Show password </p>
           </label>
             <br>
-            <span style="font-size:small;">Having troubles with the password ? <a href="pwgen" class="navbar-brand" style="font-size:x-small; color:#888;"> Click here</a> </span>
+            <span style="font-size:small;">Having troubles with the password ? <a href="pwgen" class="navbar-brand" style="font-size:x-small; color:#888;" target="blank"> Click here</a> </span>
         </div>
     </div>
 
