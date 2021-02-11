@@ -5,7 +5,7 @@ from flask.globals import session
 from datetime import datetime, timedelta , date
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
-from codes import pw_maker,how_strong
+from codes import pw_maker,how_strong,pinger
 ###########################################################################################################
 
 
@@ -71,6 +71,7 @@ def signup():
         today=to_integer(date.today())
         birthdate=to_integer(session["birthdate"])
         age=today-birthdate
+
         tempuser= users.query.filter_by(username=session["username"]).first()
         
         if tempuser:
@@ -89,6 +90,10 @@ def signup():
             
         if re.search(r'[^a-zA-Z0-9]', session["username"]):
             flash("username  must be letters and numbers only")
+            allgood=False
+
+        if  pinger.test_if_real(session["useremail"]):
+            flash("email is not valid")
             allgood=False
         
         if age < 180000:
