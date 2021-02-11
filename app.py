@@ -66,7 +66,7 @@ def signup():
         session["lastname"]= request.form["input_lastname"]
         session["username"]= request.form["input_username"]
         session["useremail"]= request.form["input_email"]
-        session["birthdate"]=datetime.strptime(request.form["input_birthdate"],'%Y-%d-%m')
+        session["birthdate"]=datetime.strptime(request.form["input_birthdate"],'%Y-%m-%d')
         password1= request.form["input_password1"]
         password2= request.form["input_password2"]
         today=to_integer(date.today())
@@ -92,7 +92,7 @@ def signup():
             flash("username  must be letters and numbers only")
             allgood=False
         
-        if age < 18:
+        if age < 180000:
             flash("to yuong 2 die")
             allgood=False
 
