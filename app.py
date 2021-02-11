@@ -60,7 +60,6 @@ def main():
 @app.route("/signup",methods=["POST","GET"])
 def signup():
     if request.method=="POST":
-        session.clear()
         allgood= True
         session["firstname"]= request.form["input_firstname"]
         session["lastname"]= request.form["input_lastname"]
@@ -149,21 +148,18 @@ def pwgen():
 def login():
 
     if request.method=="POST":
-        session.clear()
-        pw=""
-        session["username"]=request.form["login_username"]
-        pw=request.form["login_password"].encode("utf-8")
+        session["username"]=request.form["username"]
+        session["password"]=request.form["password"].encode("utf-8")
 
-        usr= users.query.filter_by(username=session["username"]).first()
+        usr = users.query.filter_by(username=session["username"]).first()
         if usr:
-            if bcrypt.checkpw(pw,usr.user_password):
-                pw=""
+            if bcrypt.checkpw(session["password"],usr.user_password):
                 return redirect(url_for("home") )
             else:
-                pass
+                flash("login faild.")
         else:
-            pass
-
+            flash("login faild.")
+            
         flash("wrong username or password.")
     return render_template("login.html")
     
@@ -177,7 +173,8 @@ def login():
 def home():
     try:
         if session["username"]:
-            return render_template("home.html",usr=session["username"] , pw=session["password"])
+            usr = users.query.filter_by(username=session["username"]).first()
+            return render_template("home.html",usr=session["username"] , pw= usr.user_password)
         else:
             flash("login first.")
             return redirect(url_for("login"))
