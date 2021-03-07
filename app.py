@@ -65,7 +65,7 @@ def signup():
         session["lastname"]= request.form["input_lastname"]
         session["username"]= request.form["input_username"]
         session["useremail"]= request.form["input_email"]
-        session["birthdate"]=datetime.strptime(request.form["input_birthdate"],'%Y-%m-%d')
+        session["birthdate"]= datetime.strptime(request.form["input_birthdate"],'%Y-%m-%d')
         password1= request.form["input_password1"]
         password2= request.form["input_password2"]
         today=to_integer(date.today())
@@ -115,11 +115,8 @@ def signup():
             newuser=users(session["firstname"],session["lastname"],session["username"],session["useremail"],session["birthdate"],session["password"],datetime.now())
             db.session.add(newuser)
             db.session.commit()
-            
             return redirect(url_for("home"))
-        return render_template("signup.html")
-    else:
-        return render_template("signup.html")
+    return render_template("signup.html")
 
 def to_integer(dt_time):
     return 10000*dt_time.year + 100*dt_time.month + dt_time.day
@@ -153,6 +150,7 @@ def pwgen():
 def login():
 
     if request.method=="POST":
+        session.clear()
         session["username"]=request.form["username"]
         session["password"]=request.form["password"].encode("utf-8")
 

@@ -9,6 +9,8 @@ flask-sqlalchemy = "*"
 bcrypt = "*"
 sqlalchemy = "*"
 datetime = "*"
+ping3 = "*"
+regex = "*"
 
 [dev-packages]
 
